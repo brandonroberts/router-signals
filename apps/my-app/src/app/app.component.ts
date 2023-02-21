@@ -18,10 +18,14 @@ import { AboutComponent } from './about.component';
   ],
   selector: 'signal-router-root',
   template: `
-    <a linkTo="/">Home</a> | <a linkTo="/about">About</a>
+    <a linkTo="/">Home</a> 
+    | <a linkTo="/about">About</a> 
+    | <a linkTo="/product/1">Product 1</a>
+    | <a linkTo="/product/2">Product 2</a>
     
     <p>
       <router>
+        <route path="/product/:id" [load]="components.product"> </route>
         <route path="/about" [load]="components.about"> </route>
         <route path="/" [exact]="true" [load]="components.home"> </route>
       </router>
@@ -33,5 +37,6 @@ export class AppComponent {
   components = {
     about: () => import('./about.component').then((m) => m.AboutComponent),
     home: () => import('./home.component').then((m) => m.HomeComponent),
+    product: () => import('./product.component').then(m => m.ProductComponent)
   };
 }

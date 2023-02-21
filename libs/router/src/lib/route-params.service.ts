@@ -1,14 +1,15 @@
 import { inject, InjectionToken } from '@angular/core';
+import { Signal } from '@signal-router/signals';
 
 export interface Params {
   [param: string]: any;
 }
 
-export const RoutePath = new InjectionToken('Route Path');
+export const RoutePath = new InjectionToken<Signal<string>>('Route Path');
 
-export const RouteParams = new InjectionToken('Route Params');
+export const RouteParams = new InjectionToken<Signal<Params>>('Route Params');
 
-export const QueryParams = new InjectionToken('Query Params');
+export const QueryParams = new InjectionToken<Signal<Params>>('Query Params');
 
 export function compareParams(previous: Params, current: Params): boolean {
   return (
@@ -17,28 +18,28 @@ export function compareParams(previous: Params, current: Params): boolean {
 }
 
 /**
- * Returns the RoutePath observable from the current injector
+ * Returns the RoutePath signal from the current injector
  *
  * @returns RoutePath
  */
-export function getRoutePath<T>(): () => T {
-  return inject(RoutePath) as () => T;
+export function getRoutePath<T>(): Signal<T> {
+  return inject<Signal<T>>(RoutePath);
 }
 
 /**
- * Returns the RoutePath observable from the current injector
+ * Returns the RoutePath signal from the current injector
  *
  * @returns RouteParams
  */
-export function getRouteParams<T>(): () => T {
-  return inject(RouteParams) as () => T;
+export function getRouteParams<T>(): Signal<T> {
+  return inject<Signal<T>>(RouteParams);
 }
 
 /**
- * Returns the QueryParams observable from the current injector
+ * Returns the QueryParams signal from the current injector
  *
  * @returns QueryParams
  */
-export function getQueryParams<T>(): () => T {
-  return inject(QueryParams) as () => T;
+export function getQueryParams<T>(): Signal<T> {
+  return inject<Signal<T>>(QueryParams);
 }

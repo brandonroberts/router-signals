@@ -1,17 +1,37 @@
-import { NxWelcomeComponent } from './nx-welcome.component';
 import { Component } from '@angular/core';
-import { signal } from '@signal-router/signals';
+import {
+  LinkTo,
+  RouteComponent,
+  RouteComponentTemplate,
+  RouterComponent,
+} from '@signal-router/router';
+import { AboutComponent } from './about.component';
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent],
+  imports: [
+    RouterComponent,
+    RouteComponent,
+    RouteComponentTemplate,
+    AboutComponent,
+    LinkTo
+  ],
   selector: 'signal-router-root',
   template: `
-    {{ counter() }}
+    <a linkTo="/">Home</a> | <a linkTo="/about">About</a>
+    
+    <p>
+      <router>
+        <route path="/about" [load]="components.about"> </route>
+        <route path="/" [exact]="true" [load]="components.home"> </route>
+      </router>
+    </p>
   `,
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  counter = signal(1);
-  title = 'my-app';
+  components = {
+    about: () => import('./about.component').then((m) => m.AboutComponent),
+    home: () => import('./home.component').then((m) => m.HomeComponent),
+  };
 }

@@ -1,15 +1,14 @@
-import { inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { inject, InjectionToken } from '@angular/core';
 
 export interface Params {
   [param: string]: any;
 }
 
-export class RoutePath<T extends string = string> extends Observable<T> {}
+export const RoutePath = new InjectionToken('Route Path');
 
-export class RouteParams<T extends Params = Params> extends Observable<T> {}
+export const RouteParams = new InjectionToken('Route Params');
 
-export class QueryParams<T extends Params = Params> extends Observable<T> {}
+export const QueryParams = new InjectionToken('Query Params');
 
 export function compareParams(previous: Params, current: Params): boolean {
   return (
@@ -22,8 +21,8 @@ export function compareParams(previous: Params, current: Params): boolean {
  *
  * @returns RoutePath
  */
-export function getRoutePath<T extends string = string>(): Observable<T> {
-  return inject<RoutePath<T>>(RoutePath);
+export function getRoutePath<T>(): () => T {
+  return inject(RoutePath) as () => T;
 }
 
 /**
@@ -31,8 +30,8 @@ export function getRoutePath<T extends string = string>(): Observable<T> {
  *
  * @returns RouteParams
  */
-export function getRouteParams<T extends Params = Params>(): Observable<T> {
-  return inject<RouteParams<T>>(RouteParams);
+export function getRouteParams<T>(): () => T {
+  return inject(RouteParams) as () => T;
 }
 
 /**
@@ -40,6 +39,6 @@ export function getRouteParams<T extends Params = Params>(): Observable<T> {
  *
  * @returns QueryParams
  */
-export function getQueryParams<T extends Params = Params>(): Observable<T> {
-  return inject<QueryParams<T>>(QueryParams);
+export function getQueryParams<T>(): () => T {
+  return inject(QueryParams) as () => T;
 }

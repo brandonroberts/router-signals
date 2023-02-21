@@ -8,18 +8,16 @@ import {
 import { RouterComponent } from './router.component';
 import { RouteComponent } from './route.component';
 import { RouteComponentTemplate } from './route-component.directive';
-import { LinkActive } from './link-active.directive';
-import { LinkTo } from './link-to.directive';
 import { UrlParser } from './url-parser';
 import { QueryParams } from './route-params.service';
 import { Router } from './router.service';
+import { LinkTo } from './link-to.directive';
 
 export const components = [
   RouterComponent,
   RouteComponent,
-  LinkActive,
-  LinkTo,
   RouteComponentTemplate,
+  LinkTo
 ];
 
 export function provideComponentRouter() {
@@ -30,7 +28,7 @@ export function provideComponentRouter() {
       provide: QueryParams,
       deps: [Router],
       useFactory(router: Router) {
-        return router.queryParams$;
+        return router.queryParams;
       },
     },
   ];

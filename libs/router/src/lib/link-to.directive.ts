@@ -3,8 +3,6 @@ import {
   HostBinding,
   HostListener,
   Input,
-  Output,
-  EventEmitter,
 } from '@angular/core';
 import { Router } from './router.service';
 import { Params } from './route-params.service';
@@ -43,8 +41,6 @@ export class LinkTo {
     this._updateHref();
   }
 
-  @Output() hrefUpdated: EventEmitter<string> = new EventEmitter<string>();
-
   private _href: string | undefined;
   private _query: Params | undefined;
   private _hash: string | undefined;
@@ -71,8 +67,6 @@ export class LinkTo {
     const href = this._cleanUpHref(this._href);
 
     this.linkHref = this.router.serializeUrl(href, this._query, this._hash);
-
-    this.hrefUpdated.emit(this.linkHref);
   }
 
   /**

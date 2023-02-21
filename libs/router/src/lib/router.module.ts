@@ -1,9 +1,4 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
-import {
-  LocationStrategy,
-  PathLocationStrategy,
-  CommonModule,
-} from '@angular/common';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 import { RouterComponent } from './router.component';
 import { RouteComponent } from './route.component';
@@ -17,7 +12,7 @@ export const components = [
   RouterComponent,
   RouteComponent,
   RouteComponentTemplate,
-  LinkTo
+  LinkTo,
 ];
 
 export function provideComponentRouter() {
@@ -32,17 +27,4 @@ export function provideComponentRouter() {
       },
     },
   ];
-}
-
-@NgModule({
-  imports: [CommonModule, components],
-  exports: [components],
-})
-export class ComponentRouterModule {
-  static forRoot(): ModuleWithProviders<ComponentRouterModule> {
-    return {
-      ngModule: ComponentRouterModule,
-      providers: [provideComponentRouter()],
-    };
-  }
 }
